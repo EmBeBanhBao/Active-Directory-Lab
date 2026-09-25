@@ -178,8 +178,7 @@ Atomic Red Team was installed on the target to run additional MITRE ATT&CK techn
 | Create Account: Local Account | `T1136.001` | Telemetry generated for the new local account; visible in Splunk after indexing |
 | Command & Scripting Interpreter: PowerShell | `T1059.001` | PowerShell execution (exec-bypass / no-profile) captured and searchable in Splunk |
 
-> [!TIP]
-> This phase reinforced a core blue-team lesson: adversary emulation validates whether logging actually captures an attacker's actions. Where an expected event does not appear, that absence is itself a finding — a visibility gap to be closed before a real intrusion exploits it.
+
 
 ---
 
