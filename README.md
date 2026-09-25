@@ -140,7 +140,7 @@ A custom `inputs.conf` was placed in the forwarder's local directory to specify 
 
 1. Assigned the domain controller a static IP (`192.168.10.7`) and verified connectivity to the internet and to the Splunk host.
 2. Installed the Active Directory Domain Services (AD DS) role via Server Manager.
-3. Promoted the server to a domain controller by creating a new forest, myDFIR.local.
+3. Promoted the server to a domain controller by creating a new forest, myproject.local.
 4. Created organizational units (IT and HR) and two domain users — Jack Reacher(reacher) and Tony Swan(tonyswan) — to mirror a departmental structure.
 5. Pointed the Windows 10 workstation's DNS to the domain controller, then joined it to `myproject.local` and logged in as a domain user.
 
@@ -150,10 +150,10 @@ A custom `inputs.conf` was placed in the forwarder's local directory to specify 
 
 ### 5.1 RDP Brute-Force Attack
 
-Remote Desktop was enabled on the target workstation for the two domain users. On Kali, the crowbar tool was used to brute-force RDP against the user tsmith. A short password list was built from the first lines of `rockyou.txt`, with the account's real password appended so the attack would succeed and generate a clean success-and-failure pattern to hunt.
+Remote Desktop was enabled on the target workstation for the two domain users. On Kali, the crowbar tool was used to brute-force RDP against the user reacher. A short password list was built from the first lines of `rockyou.txt`, with the account's real password appended so the attack would succeed and generate a clean success-and-failure pattern to hunt.
 
 ```bash
-crowbar -b rdp -u tsmith -C password.txt -s 192.168.10.100/32
+crowbar -b rdp -u reacher -C password.txt -s 192.168.10.100/32
 ```
 
 Crowbar iterated the wordlist and reported a successful RDP login on the correct password, confirming the attack against the domain account.
