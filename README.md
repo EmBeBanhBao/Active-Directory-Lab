@@ -104,19 +104,13 @@ A static addressing plan was defined up front and applied to every host except t
 
 The environment was first mapped in a diagram (built in draw.io) covering the two servers, the target and attacker workstations, a switch, a router, and the internet. The diagram fixed the domain name (`myproject.local`), the subnet, and each host's role and IP, and marked the forwarding paths from the Windows endpoints to Splunk. Planning this before building clarified how data would flow and served as the reference for the rest of the project.
 
-<!-- 📷 PHOTO PLACEHOLDER: replace the path below with your network diagram image -->
-<p align="center">
-  ![Topology](https://github.com/EmBeBanhBao/Active-Directory-Lab/blob/d3be2151d9407ddf2c07220fe1d83806843f07e1/Schematic.png)
-  
+![Active Directory Lab Schematic](Schematic.png)
 
 ### Phase 2 — Virtual Machine Provisioning
 
 All four guests were installed in VirtualBox. Windows 10 and Windows Server 2022 were installed from Microsoft ISOs, Kali Linux from its prebuilt VirtualBox image, and Splunk's host from the Ubuntu Server 22.04 ISO. VirtualBox downloads were integrity-checked against published SHA-256 hashes before installation. Every VM's adapter was attached to the shared NAT Network so the hosts could communicate on `192.168.10.0/24`.
 
-<!-- 📷 PHOTO PLACEHOLDER: replace the path below with your Server Manager / VirtualBox screenshot -->
-<p align="center">
-  <img src="images/vm-provisioning.png" alt="Server Manager and running VMs" width="700">
-</p>
+![Lab Server Manager](https://github.com/EmBeBanhBao/Active-Directory-Lab/blob/1984ab0fd8adeed56f4be3f5df9830a6522353d7/Report%203.png)
 
 ### Phase 3 — Telemetry & Splunk Pipeline
 
@@ -131,10 +125,7 @@ A custom `inputs.conf` was placed in the forwarder's local directory to specify 
 
 **Verification:** a search of `index=endpoint` in Splunk returned live events with the host TARGET-PC and the expected Security, Application, System, and Sysmon source types — confirming the pipeline was working end-to-end.
 
-<!-- 📷 PHOTO PLACEHOLDER: replace the path below with your Splunk index=endpoint search screenshot -->
-<p align="center">
-  <img src="images/splunk-endpoint-index.png" alt="Splunk search of index=endpoint" width="700">
-</p>
+![Search Index](https://github.com/EmBeBanhBao/Active-Directory-Lab/blob/a9ad1770792a30d4b79a81e50c42c0cde93b8717/Report%204.png)
 
 ### Phase 4 — Active Directory Deployment
 
@@ -143,7 +134,7 @@ A custom `inputs.conf` was placed in the forwarder's local directory to specify 
 3. Promoted the server to a domain controller by creating a new forest, myproject.local.
 4. Created organizational units (IT and HR) and two domain users — Jack Reacher(reacher) and Tony Swan(tonyswan) — to mirror a departmental structure.
 5. Pointed the Windows 10 workstation's DNS to the domain controller, then joined it to `myproject.local` and logged in as a domain user.
-
+![AD domain](https://github.com/EmBeBanhBao/Active-Directory-Lab/blob/900387c8bb0d311ba627e4cde6946f9e96f03555/Report%205.png)
 ---
 
 ## 5. Attack Simulation & Detection
@@ -169,6 +160,7 @@ The generated telemetry was then investigated in Splunk. Filtering the `endpoint
 
 The tight timestamp clustering of the twenty 4625 failures, immediately followed by one 4624 success originating from the Kali host, is exactly the pattern an analyst would alert on. Windows event codes were cross-referenced against Ultimate Windows Security to confirm their meaning.
 
+![Detection](https://github.com/EmBeBanhBao/Active-Directory-Lab/blob/3a8c034dbd41d146f686d760f78c476e0ed3a250/Report%206.png)
 ### 5.3 Adversary Emulation with Atomic Red Team
 
 Atomic Red Team was installed on the target to run additional MITRE ATT&CK techniques and test detection coverage. A Microsoft Defender exclusion was set so test artifacts would not be removed mid-run.
@@ -179,7 +171,7 @@ Atomic Red Team was installed on the target to run additional MITRE ATT&CK techn
 | Command & Scripting Interpreter: PowerShell | `T1059.001` | PowerShell execution (exec-bypass / no-profile) captured and searchable in Splunk |
 
 
-
+![ART](https://github.com/EmBeBanhBao/Active-Directory-Lab/blob/26dbf53fe137c730910a10f92fe9c4c7bcb2a5e5/Report%207.png)
 ---
 
 ## 6. Outcomes & Skills Demonstrated
