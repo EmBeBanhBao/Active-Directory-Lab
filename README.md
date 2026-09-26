@@ -106,8 +106,8 @@ The environment was first mapped in a diagram (built in draw.io) covering the tw
 
 <!-- 📷 PHOTO PLACEHOLDER: replace the path below with your network diagram image -->
 <p align="center">
-  <img src="images/network-diagram.png" alt="Network topology diagram" width="700">
-</p>
+  ![Topology](https://github.com/EmBeBanhBao/Active-Directory-Lab/blob/d3be2151d9407ddf2c07220fe1d83806843f07e1/Schematic.png)
+  
 
 ### Phase 2 — Virtual Machine Provisioning
 
